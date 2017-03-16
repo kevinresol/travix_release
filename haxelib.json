@@ -1,19 +1,19 @@
 {
-  "main": "travix.Release",
-  "name": "travix_release",
-  "license": "MIT",
-  "tags": [
-    "travis",
-    "ci",
-    "build",
-    "tool"
-  ],
-  "classPath": "src",
-  "contributors": [
-    "kevinresol",
-    "back2dos"
-  ],
-  "releasenote": "initial release",
-  "version": "0.0.1",
-  "dependencies": {}
+	"main": "travix.Release",
+	"name": "travix_release",
+	"license": "MIT",
+	"tags": [
+		"travis",
+		"ci",
+		"build",
+		"tool"
+	],
+	"classPath": "src",
+	"contributors": [
+		"kevinresol",
+		"back2dos"
+	],
+	"releasenote": "Run prerelease",
+	"version": "0.1.0",
+	"dependencies": {}
 }
