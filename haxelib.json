@@ -1,7 +1,7 @@
 {
+  "main": "travix.Release",
   "name": "travix_release",
   "license": "MIT",
-  "main": "travix.Release",
   "tags": [
     "travis",
     "ci",
@@ -14,6 +14,6 @@
     "back2dos"
   ],
   "releasenote": "initial release",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {}
 }

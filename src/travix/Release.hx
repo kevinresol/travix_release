@@ -16,16 +16,23 @@ class Release {
 	
 	static function main() {
 		var args = Sys.args();
-		if(args.length == 0) error('Please specify version. e.g. "haxelib run travix_release 1.0.0"');
+		#if interp Sys.setCwd(args.pop()); #end
+		
+		var version = args[0];
+		if(version == null) 
+			switch [Sys.getEnv('TRAVIS'), Sys.getEnv('TRAVIS_TAG')] {
+				case ['true', tag]: version = tag;
+				default: error('Please specify version. e.g. "haxelib run travix_release 1.0.0"');
+			}
 		
 		var info:HaxelibInfo = INFO.getContent().parse();
-		info.version = args[0];
-		INFO.saveContent(info.stringify());
+		info.version = version;
+		INFO.saveContent(info.stringify('  '));
 		
+		Sys.println('== Preparing bundle');
 		var bundle = 'bundle.zip';
 		
-		if (bundle.exists())
-		bundle.deleteFile();
+		if (bundle.exists()) bundle.deleteFile();
 		
 		var files = 
 			try info.travix.release.files // Too lazy to do null checks...
@@ -49,15 +56,16 @@ class Release {
 				if(i == -1) error('Incorrect format for the haxelib credentials. Use travix_auth to set it up.');
 				var user = v.substr(0, i);
 				var pass = v.substr(i + 1);
-				Sys.println('Submitting haxelib');
+				Sys.println('== Submitting haxelib');
 				var proc = new Process('haxelib submit $bundle');
 				if(info.contributors.length > 1)
 					proc.stdin.writeString('$user\n');
 				proc.stdin.writeString('$pass\n');
-				proc.stdin.writeString('y\n');
+				proc.stdin.writeString('y\n'); // overwrite if version already exists
 				Sys.println((proc.exitCode() == 0 ? proc.stdout : proc.stderr).readAll().toString());
-				Sys.println('Cleanup');
+				Sys.println('== Cleanup');
 				bundle.deleteFile();
+				Sys.println('== Done');
 		}
 		
 	}
