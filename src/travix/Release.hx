@@ -13,6 +13,7 @@ class Release {
 	static var README = 'README.md';
 	static var EXTRAS = 'extraParams.hxml';
 	static var INFO = 'haxelib.json';
+	static var PRERELEASE = 'prerelease.hxml';
 	
 	static function main() {
 		var args = Sys.args();
@@ -27,9 +28,18 @@ class Release {
 		
 		var info:HaxelibInfo = INFO.getContent().parse();
 		info.version = version;
-		INFO.saveContent(info.stringify('  '));
+		
+		
+		if(PRERELEASE.exists()) {
+			Sys.println('== Compiling $PRERELEASE');
+			switch Sys.command('haxe', [PRERELEASE]) {
+				case 0: // ok
+				case v: error('Error compiling $PRERELEASE');
+			}
+		}
 		
 		Sys.println('== Preparing bundle');
+		INFO.saveContent(info.stringify('  '));
 		var bundle = 'bundle.zip';
 		
 		if (bundle.exists()) bundle.deleteFile();
