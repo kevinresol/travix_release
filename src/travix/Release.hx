@@ -22,6 +22,7 @@ class Release {
 		var version = args[0];
 		if(version == null) 
 			switch [Sys.getEnv('TRAVIS'), Sys.getEnv('TRAVIS_TAG')] {
+				case ['true', null | '']: error('Not a tag, skipping...');
 				case ['true', tag]: version = tag;
 				default: error('Please specify version. e.g. "haxelib run travix_release 1.0.0"');
 			}
