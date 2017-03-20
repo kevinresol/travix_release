@@ -68,7 +68,7 @@ class Release {
 				var user = v.substr(0, i);
 				var pass = v.substr(i + 1);
 				Sys.println('== Submitting haxelib');
-				var proc = new Process('haxelib submit $bundle');
+				var proc = new Process('haxelib submit $bundle', []);
 				if(info.contributors.length > 1)
 					proc.stdin.writeString('$user\n');
 				proc.stdin.writeString('$pass\n');
