@@ -13,7 +13,7 @@
 		"kevinresol",
 		"back2dos"
 	],
-	"releasenote": "Fix old haxe",
-	"version": "0.1.4",
+	"releasenote": "Bundle run.n as well",
+	"version": "0.1.5",
 	"dependencies": {}
 }
