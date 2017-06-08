@@ -14,6 +14,7 @@ class Release {
 	static var EXTRAS = 'extraParams.hxml';
 	static var INFO = 'haxelib.json';
 	static var PRERELEASE = 'prerelease.hxml';
+	static var RUN = 'run.n';
 	
 	static function main() {
 		var args = Sys.args();
@@ -52,6 +53,7 @@ class Release {
 		if(files == null) {
 			files = [INFO, README, info.classPath];
 			if(EXTRAS.exists()) files.push(EXTRAS);
+			if(RUN.exists()) files.push(RUN);
 		}
 			
 		var a = new Archive();
